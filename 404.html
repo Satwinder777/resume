@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resume Builder</title>
+    <script>
+      // GitHub Pages SPA redirect: store path and reload at index with basename
+      (function () {
+        var base = '/resume/';
+        var segmentCount = 1;
+        var l = window.location;
+        l.replace(
+          l.protocol +
+            '//' +
+            l.hostname +
+            (l.port ? ':' + l.port : '') +
+            base +
+            '?p=' +
+            l.pathname.slice(base.length).replace(/^\//, '') +
+            (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+            l.hash
+        );
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
