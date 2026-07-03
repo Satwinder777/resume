@@ -27,6 +27,8 @@ jobs:
           cache: npm
 
       - name: Install & build
+        env:
+          VITE_SATCRAFT_DEPLOY_KEY: ${{ secrets.SATCRAFT_DEPLOY_KEY }}
         run: npm ci && npm run build
 
       - name: Deploy to gh-pages branch

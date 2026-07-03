@@ -1,8 +1,18 @@
-# Resume Builder
+# SatCraft
 
-A free, fully static resume builder — similar to BetterCV — built with React, Vite, and Tailwind CSS. No backend, no signup. Your resume data is saved locally in your browser.
+A free, fully static resume builder built with React, Vite, and Tailwind CSS. No backend, no signup. Your resume data is saved locally in your browser.
 
 **Live site:** [https://satwinder777.github.io/resume](https://satwinder777.github.io/resume)
+
+## Deploy license (owner only)
+
+SatCraft requires a private deploy key at build time. Cloned repos **will not run** without it.
+
+1. Copy `.env.example` → `.env.local`
+2. Set `VITE_SATCRAFT_DEPLOY_KEY` to a random string (32+ characters)
+3. Add the **same value** as `SATCRAFT_DEPLOY_KEY` in GitHub → Settings → Secrets → Actions
+
+Only builds with a valid key work on `satwinder777.github.io` (and `localhost` for your dev).
 
 ## Features
 
