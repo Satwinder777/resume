@@ -8,7 +8,7 @@ interface TemplateProps {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mb-2 border-b border-slate-900 pb-1 text-xs font-bold uppercase tracking-widest text-slate-900">
+    <h2 className="resume-section-heading mb-2 border-b border-slate-900 pb-1 text-xs font-bold uppercase tracking-widest text-slate-900">
       {children}
     </h2>
   )
@@ -40,13 +40,15 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
             <div className="space-y-4">
               {experience.map((exp) => (
                 <div key={exp.id} className="resume-entry">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h3 className="text-sm font-semibold text-slate-900">{exp.role || 'Role'}</h3>
-                    <span className="shrink-0 text-xs text-slate-500">
-                      {formatDateRange(exp.startDate, exp.endDate, exp.current)}
-                    </span>
+                  <div className="resume-job-header">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h3 className="text-sm font-semibold text-slate-900">{exp.role || 'Role'}</h3>
+                      <span className="shrink-0 text-xs text-slate-500">
+                        {formatDateRange(exp.startDate, exp.endDate, exp.current)}
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium text-slate-600">{exp.company}</p>
                   </div>
-                  <p className="text-sm font-medium text-slate-600">{exp.company}</p>
                   {exp.bullets.filter(Boolean).length > 0 && (
                     <ul className="mt-1 list-disc space-y-0.5 pl-4 text-sm text-slate-700">
                       {exp.bullets.filter(Boolean).map((b, i) => (

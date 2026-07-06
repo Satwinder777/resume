@@ -19,12 +19,38 @@ export const RESUME_PRINT_PAGE_STYLE = `
     max-width: 210mm !important;
     min-height: auto !important;
     margin: 0 !important;
-    padding: 9mm 11mm !important;
+    padding: 6mm 8mm !important;
     overflow: visible !important;
+    font-size: 9.5pt !important;
+    line-height: 1.28 !important;
     page-break-after: auto !important;
     break-after: auto !important;
-    page-break-inside: auto;
-    break-inside: auto;
+  }
+
+  .resume-page header {
+    margin-bottom: 0.35rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+
+  .resume-page h1,
+  .resume-page .text-3xl {
+    font-size: 15pt !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.1rem !important;
+  }
+
+  .resume-page .text-base {
+    font-size: 10pt !important;
+  }
+
+  .resume-page .text-sm {
+    font-size: 9.5pt !important;
+    line-height: 1.28 !important;
+  }
+
+  .resume-page .text-xs {
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
   }
 
   .resume-page.flex {
@@ -38,34 +64,54 @@ export const RESUME_PRINT_PAGE_STYLE = `
   }
 
   .resume-section {
-    margin-bottom: 0.65rem !important;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    margin-bottom: 0.3rem !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .resume-section-heading {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    margin-bottom: 0.12rem !important;
+  }
+
+  .resume-job-header {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
   }
 
   .resume-entry {
-    margin-bottom: 0.5rem !important;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    margin-bottom: 0.28rem !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 
   .resume-entry:last-child {
     margin-bottom: 0 !important;
   }
 
+  .resume-project {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 0.25rem !important;
+  }
+
   ul, ol {
-    margin-top: 0.15rem !important;
+    margin-top: 0.08rem !important;
     margin-bottom: 0 !important;
-    padding-left: 1rem !important;
+    padding-left: 0.9rem !important;
   }
 
   li {
-    margin-bottom: 0.1rem !important;
-    line-height: 1.35 !important;
+    margin-bottom: 0.05rem !important;
+    line-height: 1.26 !important;
   }
 
   p {
-    orphans: 3;
-    widows: 3;
+    orphans: 2;
+    widows: 2;
+    margin-bottom: 0.08rem !important;
   }
 `

@@ -18,11 +18,11 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
   const Heading = ({ children }: { children: React.ReactNode }) => {
     switch (mode) {
       case 'ats':
-        return <p className="mb-1 text-sm font-bold text-black">{children}</p>
+        return <p className="resume-section-heading mb-1 text-sm font-bold text-black">{children}</p>
       case 'professional':
         return (
           <h2
-            className="mb-3 border-b pb-1 font-serif text-sm font-bold uppercase tracking-widest"
+            className="resume-section-heading mb-3 border-b pb-1 font-serif text-sm font-bold uppercase tracking-widest"
             style={{ color: accent, borderColor: `${accent}55` }}
           >
             {children}
@@ -30,13 +30,13 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
         )
       case 'one-column':
         return (
-          <h2 className="mb-2 bg-slate-100 px-2 py-1 text-xs font-bold uppercase tracking-wide text-black">
+          <h2 className="resume-section-heading mb-2 bg-slate-100 px-2 py-1 text-xs font-bold uppercase tracking-wide text-black">
             {children}
           </h2>
         )
       case 'modern':
         return (
-          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: accent }}>
+          <h2 className="resume-section-heading mb-2 text-sm font-bold uppercase tracking-wide" style={{ color: accent }}>
             {children}
           </h2>
         )
@@ -44,7 +44,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       default:
         return (
           <h2
-            className="mb-2 border-b pb-1 text-xs font-bold uppercase tracking-widest text-black"
+            className="resume-section-heading mb-2 border-b pb-1 text-xs font-bold uppercase tracking-widest text-black"
             style={{ borderColor: primary }}
           >
             {children}
@@ -76,14 +76,14 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
                 style={mode === 'modern' ? { borderColor: accent } : undefined}
               >
                 {mode === 'one-column' || mode === 'ats' ? (
-                  <>
+                  <div className="resume-job-header">
                     <p className={`text-sm ${mode === 'ats' ? 'font-bold text-black' : 'font-bold'}`}>
                       {exp.role}{exp.company ? `, ${exp.company}` : ''}
                     </p>
                     <p className="text-sm">{formatDateRange(exp.startDate, exp.endDate, exp.current)}</p>
-                  </>
+                  </div>
                 ) : (
-                  <>
+                  <div className="resume-job-header">
                     <div className="flex items-baseline justify-between gap-3">
                       <h3 className="text-sm font-bold" style={{ color: mode === 'professional' ? primary : undefined }}>
                         {exp.role || 'Role'}
@@ -95,7 +95,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
                     <p className="text-sm font-medium" style={{ color: mode === 'modern' || mode === 'professional' ? accent : undefined }}>
                       {exp.company}
                     </p>
-                  </>
+                  </div>
                 )}
                 {exp.bullets.filter(Boolean).length > 0 && (
                   mode === 'ats' ? (
@@ -183,7 +183,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
           <section key={section.id} className="resume-section mb-5">
             <Heading>Projects</Heading>
             {data.projects.map((p) => (
-              <div key={p.id} className="resume-entry mb-2">
+              <div key={p.id} className="resume-entry resume-project mb-2">
                 <h3 className="text-sm font-semibold">{p.name}</h3>
                 <p className="text-sm">{p.description}</p>
               </div>

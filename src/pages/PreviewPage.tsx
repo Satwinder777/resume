@@ -10,7 +10,7 @@ import { getVariantById } from '../utils/templates'
 export function PreviewPage() {
   const { data, selectedTemplateId } = useResume()
   const resumeRef = useRef<HTMLDivElement>(null)
-  const { downloadPdf, downloadPng } = useResumeExport(resumeRef)
+  const { downloadPdf, downloadPng, downloadPdfRaster } = useResumeExport(resumeRef)
   const template = selectedTemplateId ? getVariantById(selectedTemplateId) : null
 
   if (!selectedTemplateId) {
@@ -55,6 +55,13 @@ export function PreviewPage() {
             </button>
             <button
               type="button"
+              onClick={downloadPdfRaster}
+              className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              PDF (image)
+            </button>
+            <button
+              type="button"
               onClick={downloadPng}
               className="rounded-lg border border-violet-600 px-5 py-2 text-sm font-semibold text-violet-600 hover:bg-violet-50 dark:border-violet-400 dark:text-violet-400 dark:hover:bg-violet-950"
             >
@@ -64,8 +71,8 @@ export function PreviewPage() {
         </div>
 
         <p className="no-print mb-4 text-sm text-slate-500 dark:text-slate-400">
-          PDF download opens your browser print dialog. Set <strong>Margins: None</strong> and{' '}
-          <strong>Scale: 100%</strong> for correct spacing. Choose &quot;Save as PDF&quot; for selectable text.
+          In the print dialog set <strong>Margins: None</strong> and <strong>Scale: 100%</strong>. Long resumes
+          auto-fit to fewer pages with tighter spacing when printing.
         </p>
 
         <div className="no-print overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 p-4 dark:border-slate-700 dark:bg-slate-800">
