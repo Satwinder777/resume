@@ -10,7 +10,7 @@ import { getVariantById } from '../utils/templates'
 export function PreviewPage() {
   const { data, selectedTemplateId } = useResume()
   const resumeRef = useRef<HTMLDivElement>(null)
-  const { downloadPdf, downloadPng, downloadPdfRaster } = useResumeExport(resumeRef)
+  const { downloadPdf, downloadPdfPrint, downloadPng } = useResumeExport(resumeRef)
   const template = selectedTemplateId ? getVariantById(selectedTemplateId) : null
 
   if (!selectedTemplateId) {
@@ -48,17 +48,17 @@ export function PreviewPage() {
             </Link>
             <button
               type="button"
-              onClick={downloadPdf}
+              onClick={() => void downloadPdf()}
               className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm hover:brightness-110"
             >
               Download as PDF
             </button>
             <button
               type="button"
-              onClick={downloadPdfRaster}
+              onClick={downloadPdfPrint}
               className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
             >
-              PDF (image)
+              PDF (selectable text)
             </button>
             <button
               type="button"
@@ -71,8 +71,8 @@ export function PreviewPage() {
         </div>
 
         <p className="no-print mb-4 text-sm text-slate-500 dark:text-slate-400">
-          In the print dialog set <strong>Margins: None</strong> and <strong>Scale: 100%</strong>. Long resumes
-          auto-fit to fewer pages with tighter spacing when printing.
+          <strong>Download as PDF</strong> saves directly with equal margins on every page. For ATS-friendly
+          selectable text, use <strong>PDF (selectable text)</strong> and set Margins to <strong>Default</strong>.
         </p>
 
         <div className="no-print overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 p-4 dark:border-slate-700 dark:bg-slate-800">

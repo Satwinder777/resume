@@ -59,7 +59,7 @@ body {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 7mm 8mm;
+    margin: 0;
   }
 
   html,
@@ -80,12 +80,15 @@ body {
   }
 
   .resume-page {
+    box-sizing: border-box !important;
     box-shadow: none !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
     min-height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0 auto !important;
+    padding: 10mm 10mm !important;
+    box-decoration-break: clone !important;
+    -webkit-box-decoration-break: clone !important;
     overflow: visible !important;
     font-size: 9.5pt !important;
     line-height: 1.28 !important;
@@ -185,4 +188,55 @@ body {
 
 .print-only {
   display: none;
+}
+
+/* Compact layout used while generating image-based PDF */
+.resume-page.resume-capture-compact {
+  box-sizing: border-box;
+  min-height: auto !important;
+  box-shadow: none !important;
+  width: 190mm !important;
+  max-width: 190mm !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 9.5pt;
+  line-height: 1.28;
+}
+
+.resume-capture-compact header {
+  margin-bottom: 0.35rem !important;
+  padding-bottom: 0.2rem !important;
+}
+
+.resume-capture-compact h1,
+.resume-capture-compact .text-3xl {
+  font-size: 15pt !important;
+  line-height: 1.15 !important;
+}
+
+.resume-capture-compact .text-sm {
+  font-size: 9.5pt !important;
+  line-height: 1.28 !important;
+}
+
+.resume-capture-compact .text-xs {
+  font-size: 8.5pt !important;
+}
+
+.resume-capture-compact .resume-section {
+  margin-bottom: 0.3rem !important;
+}
+
+.resume-capture-compact .resume-entry {
+  margin-bottom: 0.28rem !important;
+}
+
+.resume-capture-compact ul {
+  margin-top: 0.08rem !important;
+  padding-left: 0.9rem !important;
+}
+
+.resume-capture-compact li {
+  margin-bottom: 0.05rem !important;
+  line-height: 1.26 !important;
 }

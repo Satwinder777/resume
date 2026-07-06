@@ -2,7 +2,7 @@
 export const RESUME_PRINT_PAGE_STYLE = `
   @page {
     size: A4 portrait;
-    margin: 7mm 8mm;
+    margin: 0;
   }
 
   html, body {
@@ -14,12 +14,15 @@ export const RESUME_PRINT_PAGE_STYLE = `
   }
 
   .resume-page {
+    box-sizing: border-box !important;
     box-shadow: none !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
     min-height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0 auto !important;
+    padding: 10mm 10mm !important;
+    box-decoration-break: clone !important;
+    -webkit-box-decoration-break: clone !important;
     overflow: visible !important;
     font-size: 9.5pt !important;
     line-height: 1.28 !important;

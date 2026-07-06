@@ -5,14 +5,11 @@ import { RESUME_PRINT_PAGE_STYLE } from './printStyles'
 
 const A4_WIDTH_MM = 210
 const A4_HEIGHT_MM = 297
-const PAGE_MARGIN_X_MM = 8
-const PAGE_MARGIN_Y_MM = 7
+const PAGE_MARGIN_MM = 10
 
 function sliceCanvasToPdf(canvas: HTMLCanvasElement, pdf: jsPDF) {
-  const pageWidth = A4_WIDTH_MM
-  const pageHeight = A4_HEIGHT_MM
-  const contentWidth = pageWidth - PAGE_MARGIN_X_MM * 2
-  const contentHeight = pageHeight - PAGE_MARGIN_Y_MM * 2
+  const contentWidth = A4_WIDTH_MM - PAGE_MARGIN_MM * 2
+  const contentHeight = A4_HEIGHT_MM - PAGE_MARGIN_MM * 2
   const pageHeightPx = Math.floor((canvas.width * contentHeight) / contentWidth)
   let renderedHeight = 0
   let pageIndex = 0
@@ -43,8 +40,8 @@ function sliceCanvasToPdf(canvas: HTMLCanvasElement, pdf: jsPDF) {
     pdf.addImage(
       pageCanvas.toDataURL('image/png'),
       'PNG',
-      PAGE_MARGIN_X_MM,
-      PAGE_MARGIN_Y_MM,
+      PAGE_MARGIN_MM,
+      PAGE_MARGIN_MM,
       contentWidth,
       sliceHeightMm,
     )
@@ -61,10 +58,6 @@ export function useResumeExport(resumeRef: React.RefObject<HTMLDivElement | null
     pageStyle: RESUME_PRINT_PAGE_STYLE,
   })
 
-  const downloadPdf = () => {
-    handlePrint()
-  }
-
   const captureResumeCanvas = async () => {
     const element = resumeRef.current
     if (!element) return null
@@ -72,15 +65,35 @@ export function useResumeExport(resumeRef: React.RefObject<HTMLDivElement | null
     const resumePage = element.querySelector('.resume-page') as HTMLElement | null
     const target = resumePage ?? element
 
-    return html2canvas(target, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-      width: target.scrollWidth,
-      height: target.scrollHeight,
-      windowWidth: target.scrollWidth,
-      windowHeight: target.scrollHeight,
-    })
+    target.classList.add('resume-capture-compact')
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+
+    try {
+      return await html2canvas(target, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        width: target.scrollWidth,
+        height: target.scrollHeight,
+        windowWidth: target.scrollWidth,
+        windowHeight: target.scrollHeight,
+      })
+    } finally {
+      target.classList.remove('resume-capture-compact')
+    }
+  }
+
+  const downloadPdf = async () => {
+    const canvas = await captureResumeCanvas()
+    if (!canvas) return
+
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+    sliceCanvasToPdf(canvas, pdf)
+    pdf.save('resume.pdf')
+  }
+
+  const downloadPdfPrint = () => {
+    handlePrint()
   }
 
   const downloadPng = async () => {
@@ -93,14 +106,5 @@ export function useResumeExport(resumeRef: React.RefObject<HTMLDivElement | null
     link.click()
   }
 
-  const downloadPdfRaster = async () => {
-    const canvas = await captureResumeCanvas()
-    if (!canvas) return
-
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
-    sliceCanvasToPdf(canvas, pdf)
-    pdf.save('resume.pdf')
-  }
-
-  return { downloadPdf, downloadPng, downloadPdfRaster }
+  return { downloadPdf, downloadPdfPrint, downloadPng }
 }
