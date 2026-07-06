@@ -28,7 +28,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'summary':
         if (!summary) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-1 text-sm font-bold text-black">{label}</h2>
             <p className="text-sm leading-relaxed text-black">{summary}</p>
           </section>
@@ -36,10 +36,10 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'experience':
         if (!experience.some((e) => e.company || e.role)) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-2 text-sm font-bold text-black">{label}</h2>
             {experience.map((exp) => (
-              <div key={exp.id} className="mb-3">
+              <div key={exp.id} className="resume-entry mb-3">
                 <p className="text-sm font-bold text-black">
                   {exp.role}{exp.company ? `, ${exp.company}` : ''}
                 </p>
@@ -56,7 +56,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'education':
         if (!education.some((e) => e.school || e.degree)) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-2 text-sm font-bold text-black">{label}</h2>
             {education.map((edu) => (
               <div key={edu.id} className="mb-2">
@@ -69,7 +69,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'skills':
         if (skills.length === 0) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-1 text-sm font-bold text-black">{label}</h2>
             <p className="text-sm text-black">{skills.join(', ')}</p>
           </section>
@@ -77,7 +77,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'languages':
         if (languages.length === 0) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-1 text-sm font-bold text-black">{label}</h2>
             <p className="text-sm text-black">
               {languages.map((l) => `${l.language}${l.proficiency ? ` (${l.proficiency})` : ''}`).join(', ')}
@@ -87,7 +87,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'certifications':
         if (certifications.length === 0) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-2 text-sm font-bold text-black">{label}</h2>
             {certifications.map((c) => (
               <p key={c.id} className="text-sm text-black">
@@ -99,7 +99,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
       case 'projects':
         if (projects.length === 0) return null
         return (
-          <section key={section.id} className="mb-4">
+          <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-2 text-sm font-bold text-black">{label}</h2>
             {projects.map((p) => (
               <div key={p.id} className="mb-2">
@@ -114,7 +114,7 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
           <>
             {customSections.map((cs) =>
               cs.title || cs.content ? (
-                <section key={cs.id} className="mb-4">
+                <section key={cs.id} className="resume-section mb-4">
                   <h2 className="mb-1 text-sm font-bold text-black">{cs.title.toUpperCase()}</h2>
                   <p className="whitespace-pre-wrap text-sm text-black">{cs.content}</p>
                 </section>

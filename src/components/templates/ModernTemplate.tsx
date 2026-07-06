@@ -20,7 +20,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'summary':
         if (!summary) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">About</h2>
             <p className="text-sm leading-relaxed text-slate-700">{summary}</p>
           </section>
@@ -28,11 +28,11 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'experience':
         if (!experience.some((e) => e.company || e.role)) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-indigo-600">Experience</h2>
             <div className="space-y-4">
               {experience.map((exp) => (
-                <div key={exp.id}>
+                <div key={exp.id} className="resume-entry">
                   <h3 className="font-semibold text-slate-900">{exp.role || 'Role'}</h3>
                   <p className="text-sm text-indigo-600">{exp.company}</p>
                   <p className="text-xs text-slate-500">{formatDateRange(exp.startDate, exp.endDate, exp.current)}</p>
@@ -51,7 +51,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'education':
         if (!education.some((e) => e.school || e.degree)) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-indigo-600">Education</h2>
             <div className="space-y-3">
               {education.map((edu) => (
@@ -67,7 +67,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'skills':
         if (skills.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">Skills</h2>
             <div className="flex flex-wrap gap-2">
               {skills.map((skill) => (
@@ -81,7 +81,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'languages':
         if (languages.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">Languages</h2>
             <div className="space-y-1">
               {languages.map((l) => (
@@ -96,7 +96,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'certifications':
         if (certifications.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">Certifications</h2>
             {certifications.map((c) => (
               <p key={c.id} className="text-sm text-slate-700">
@@ -108,7 +108,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
       case 'projects':
         if (projects.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">Projects</h2>
             {projects.map((p) => (
               <div key={p.id} className="mb-2">
@@ -123,7 +123,7 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
           <>
             {customSections.map((cs) =>
               cs.title || cs.content ? (
-                <section key={cs.id} className="mb-5">
+                <section key={cs.id} className="resume-section mb-5">
                   <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">{cs.title}</h2>
                   <p className="whitespace-pre-wrap text-sm text-slate-700">{cs.content}</p>
                 </section>

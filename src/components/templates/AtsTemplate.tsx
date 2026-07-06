@@ -28,7 +28,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'summary':
         if (!summary) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-1 text-sm font-bold">{label}</p>
             <p className="text-sm">{summary}</p>
           </div>
@@ -36,10 +36,10 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'experience':
         if (!experience.some((e) => e.company || e.role)) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-2 text-sm font-bold">{label}</p>
             {experience.map((exp) => (
-              <div key={exp.id} className="mb-3">
+              <div key={exp.id} className="resume-entry mb-3">
                 <p className="text-sm font-bold">{exp.role}</p>
                 <p className="text-sm">{exp.company}</p>
                 <p className="text-sm">{formatDateRange(exp.startDate, exp.endDate, exp.current)}</p>
@@ -53,7 +53,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'education':
         if (!education.some((e) => e.school || e.degree)) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-2 text-sm font-bold">{label}</p>
             {education.map((edu) => (
               <div key={edu.id} className="mb-2">
@@ -67,7 +67,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'skills':
         if (skills.length === 0) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-1 text-sm font-bold">{label}</p>
             <p className="text-sm">{skills.join(', ')}</p>
           </div>
@@ -75,7 +75,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'languages':
         if (languages.length === 0) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-1 text-sm font-bold">{label}</p>
             <p className="text-sm">
               {languages.map((l) => `${l.language}${l.proficiency ? ` - ${l.proficiency}` : ''}`).join(', ')}
@@ -85,7 +85,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'certifications':
         if (certifications.length === 0) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-2 text-sm font-bold">{label}</p>
             {certifications.map((c) => (
               <p key={c.id} className="text-sm">
@@ -97,7 +97,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
       case 'projects':
         if (projects.length === 0) return null
         return (
-          <div key={section.id} className="mb-4">
+          <div key={section.id} className="resume-section mb-4">
             <p className="mb-2 text-sm font-bold">{label}</p>
             {projects.map((p) => (
               <div key={p.id} className="mb-2">
@@ -112,7 +112,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
           <>
             {customSections.map((cs) =>
               cs.title || cs.content ? (
-                <div key={cs.id} className="mb-4">
+                <div key={cs.id} className="resume-section mb-4">
                   <p className="mb-1 text-sm font-bold">{cs.title.toUpperCase()}</p>
                   <p className="whitespace-pre-wrap text-sm">{cs.content}</p>
                 </div>
@@ -127,7 +127,7 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
 
   return (
     <div className={`resume-page mx-auto p-10 font-sans text-black ${className}`} style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
-      <div className="mb-4">
+      <div className="resume-section mb-4">
         <p className="text-lg font-bold">{personalInfo.name || 'Your Name'}</p>
         {personalInfo.jobTitle && <p className="text-sm">{personalInfo.jobTitle}</p>}
         {contact.map((c) => (

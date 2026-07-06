@@ -27,7 +27,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'summary':
         if (!summary) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Summary</SectionHeading>
             <p className="text-sm leading-relaxed text-slate-700">{summary}</p>
           </section>
@@ -35,11 +35,11 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'experience':
         if (!experience.some((e) => e.company || e.role)) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Experience</SectionHeading>
             <div className="space-y-4">
               {experience.map((exp) => (
-                <div key={exp.id}>
+                <div key={exp.id} className="resume-entry">
                   <div className="flex items-baseline justify-between gap-2">
                     <h3 className="text-sm font-semibold text-slate-900">{exp.role || 'Role'}</h3>
                     <span className="shrink-0 text-xs text-slate-500">
@@ -62,11 +62,11 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'education':
         if (!education.some((e) => e.school || e.degree)) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Education</SectionHeading>
             <div className="space-y-3">
               {education.map((edu) => (
-                <div key={edu.id}>
+                <div key={edu.id} className="resume-entry">
                   <div className="flex items-baseline justify-between gap-2">
                     <h3 className="text-sm font-semibold text-slate-900">{edu.degree || 'Degree'}</h3>
                     <span className="shrink-0 text-xs text-slate-500">
@@ -82,7 +82,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'skills':
         if (skills.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Skills</SectionHeading>
             <p className="text-sm text-slate-700">{skills.join(' · ')}</p>
           </section>
@@ -90,7 +90,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'languages':
         if (languages.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Languages</SectionHeading>
             <p className="text-sm text-slate-700">
               {languages.map((l) => `${l.language}${l.proficiency ? ` (${l.proficiency})` : ''}`).join(' · ')}
@@ -100,7 +100,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'certifications':
         if (certifications.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Certifications</SectionHeading>
             <div className="space-y-2">
               {certifications.map((c) => (
@@ -116,7 +116,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
       case 'projects':
         if (projects.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Projects</SectionHeading>
             <div className="space-y-3">
               {projects.map((p) => (
@@ -134,7 +134,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
           <>
             {customSections.map((cs) =>
               cs.title || cs.content ? (
-                <section key={cs.id} className="mb-5">
+                <section key={cs.id} className="resume-section mb-5">
                   <SectionHeading>{cs.title || 'Custom Section'}</SectionHeading>
                   <p className="whitespace-pre-wrap text-sm text-slate-700">{cs.content}</p>
                 </section>

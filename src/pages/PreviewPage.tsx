@@ -64,11 +64,12 @@ export function PreviewPage() {
         </div>
 
         <p className="no-print mb-4 text-sm text-slate-500 dark:text-slate-400">
-          PDF download uses your browser&apos;s print dialog — choose &quot;Save as PDF&quot; for selectable, ATS-friendly text.
+          PDF download opens your browser print dialog. Set <strong>Margins: None</strong> and{' '}
+          <strong>Scale: 100%</strong> for correct spacing. Choose &quot;Save as PDF&quot; for selectable text.
         </p>
 
-        <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 p-4 dark:border-slate-700 dark:bg-slate-800">
-          <div ref={resumeRef}>
+        <div className="no-print overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 p-4 dark:border-slate-700 dark:bg-slate-800">
+          <div ref={resumeRef} className="resume-print-target">
             <ResumeTemplateRenderer templateId={selectedTemplateId} data={data} />
           </div>
         </div>

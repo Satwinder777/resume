@@ -58,7 +58,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'summary':
         if (!data.summary) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Summary</Heading>
             <p className={`text-sm leading-relaxed ${mode === 'ats' ? 'text-black' : ''}`}>{data.summary}</p>
           </section>
@@ -67,12 +67,12 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'experience':
         if (!data.experience.some((e) => e.company || e.role)) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Experience</Heading>
             {data.experience.map((exp) => (
               <div
                 key={exp.id}
-                className={`mb-4 ${mode === 'modern' ? 'border-l-2 pl-3' : ''} ${mode === 'professional' ? 'border-l-2 border-amber-200 pl-4' : ''}`}
+                className={`resume-entry mb-4 ${mode === 'modern' ? 'border-l-2 pl-3' : ''} ${mode === 'professional' ? 'border-l-2 border-amber-200 pl-4' : ''}`}
                 style={mode === 'modern' ? { borderColor: accent } : undefined}
               >
                 {mode === 'one-column' || mode === 'ats' ? (
@@ -116,10 +116,10 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'education':
         if (!data.education.some((e) => e.school || e.degree)) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Education</Heading>
             {data.education.map((edu) => (
-              <div key={edu.id} className="mb-2">
+              <div key={edu.id} className="resume-entry mb-2">
                 {mode === 'one-column' || mode === 'ats' ? (
                   <p className="text-sm font-bold">{edu.degree}{edu.school ? `, ${edu.school}` : ''}</p>
                 ) : (
@@ -137,7 +137,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'skills':
         if (data.skills.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Skills</Heading>
             {mode === 'modern' ? (
               <div className="flex flex-wrap gap-1.5">
@@ -156,7 +156,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'languages':
         if (data.languages.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Languages</Heading>
             <p className="text-sm">
               {data.languages.map((l) => `${l.language}${l.proficiency ? ` (${l.proficiency})` : ''}`).join(', ')}
@@ -167,7 +167,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'certifications':
         if (data.certifications.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Certifications</Heading>
             {data.certifications.map((c) => (
               <p key={c.id} className="text-sm">
@@ -180,10 +180,10 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'projects':
         if (data.projects.length === 0) return null
         return (
-          <section key={section.id} className="mb-5">
+          <section key={section.id} className="resume-section mb-5">
             <Heading>Projects</Heading>
             {data.projects.map((p) => (
-              <div key={p.id} className="mb-2">
+              <div key={p.id} className="resume-entry mb-2">
                 <h3 className="text-sm font-semibold">{p.name}</h3>
                 <p className="text-sm">{p.description}</p>
               </div>
