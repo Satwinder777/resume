@@ -20,3 +20,9 @@ export function getContactParts(personalInfo: ResumeData['personalInfo']) {
     personalInfo.linkedin,
   ].filter(Boolean)
 }
+
+export function getContactRows(personalInfo: ResumeData['personalInfo']) {
+  const primary = [personalInfo.email, personalInfo.phone, personalInfo.location].filter(Boolean)
+  const secondary = [personalInfo.website, personalInfo.linkedin].filter(Boolean)
+  return { primary, secondary }
+}

@@ -1,6 +1,6 @@
 import type { ResumeData } from '../../../types/resume'
 import type { TemplateVariant } from '../../../data/templateVariants'
-import { getContactParts } from '../shared'
+import { getContactParts, getContactRows } from '../shared'
 import { ContactIcons, RenderSections, SidebarBlock } from './sectionRenderers'
 
 export interface LayoutProps {
@@ -28,13 +28,18 @@ function Photo({ data, size = 'lg', accent }: { data: ResumeData; size?: 'sm' | 
 /** Simple: left-aligned name, underline sections */
 export function SimpleStack({ data, variant, className = '' }: LayoutProps) {
   const { personalInfo } = data
-  const contact = getContactParts(personalInfo).join('  ·  ')
+  const { primary, secondary } = getContactRows(personalInfo)
   return (
     <div className={`resume-page mx-auto p-10 text-slate-900 ${className}`}>
-      <header className="mb-6 border-b-2 border-black pb-3">
+      <header className="resume-header mb-6 border-b-2 border-black pb-3">
         <h1 className="text-3xl font-bold tracking-tight">{personalInfo.name || 'Your Name'}</h1>
         {personalInfo.jobTitle && <p className="mt-1 text-base text-slate-600">{personalInfo.jobTitle}</p>}
-        {contact && <p className="mt-2 text-xs text-slate-500">{contact}</p>}
+        {primary.length > 0 && (
+          <p className="mt-2 text-xs text-slate-500">{primary.join('  ·  ')}</p>
+        )}
+        {secondary.length > 0 && (
+          <p className="mt-1 text-xs text-slate-500">{secondary.join('  ·  ')}</p>
+        )}
       </header>
       <RenderSections data={data} theme={variant.theme} mode="simple" />
     </div>

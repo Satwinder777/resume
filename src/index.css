@@ -192,6 +192,20 @@ body {
   display: none;
 }
 
+.resume-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  row-gap: 0.2rem;
+}
+
+@media print {
+  .resume-skills-grid {
+    column-gap: 1.25rem;
+    row-gap: 0.15rem;
+  }
+}
+
 /* Compact layout used while generating image-based PDF */
 .resume-page.resume-capture-compact {
   box-sizing: border-box;
@@ -236,7 +250,18 @@ body {
 }
 
 .resume-capture-compact .resume-entry {
-  margin-bottom: 0.28rem !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.resume-capture-compact .resume-project {
+  margin-bottom: 0.45rem !important;
+}
+
+.resume-capture-compact .resume-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.25rem;
+  row-gap: 0.15rem;
 }
 
 .resume-capture-compact ul {

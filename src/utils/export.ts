@@ -1,6 +1,7 @@
 import { useReactToPrint } from 'react-to-print'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
+import { alignSectionsForPdfCapture, getPdfPageContentHeightPx } from './pdfLayout'
 import { RESUME_PRINT_PAGE_STYLE } from './printStyles'
 
 const A4_WIDTH_MM = 210
@@ -68,6 +69,12 @@ export function useResumeExport(resumeRef: React.RefObject<HTMLDivElement | null
     target.classList.add('resume-capture-compact')
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
 
+    const resetPageBreaks = alignSectionsForPdfCapture(
+      target,
+      getPdfPageContentHeightPx(A4_HEIGHT_MM, PAGE_MARGIN_MM),
+    )
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+
     try {
       return await html2canvas(target, {
         scale: 2,
@@ -79,6 +86,7 @@ export function useResumeExport(resumeRef: React.RefObject<HTMLDivElement | null
         windowHeight: target.scrollHeight,
       })
     } finally {
+      resetPageBreaks()
       target.classList.remove('resume-capture-compact')
     }
   }

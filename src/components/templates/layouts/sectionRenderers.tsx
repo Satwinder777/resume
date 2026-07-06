@@ -72,7 +72,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
             {data.experience.map((exp) => (
               <div
                 key={exp.id}
-                className={`resume-entry mb-4 ${mode === 'modern' ? 'border-l-2 pl-3' : ''} ${mode === 'professional' ? 'border-l-2 border-amber-200 pl-4' : ''}`}
+                className={`resume-entry mb-4 ${mode === 'modern' ? 'border-l-2 pl-3' : ''} ${mode === 'professional' ? 'border-l-2 border-amber-200 pl-4' : ''} ${mode === 'simple' ? 'pb-1' : ''}`}
                 style={mode === 'modern' ? { borderColor: accent } : undefined}
               >
                 {mode === 'one-column' || mode === 'ats' ? (
@@ -147,8 +147,17 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
                   </span>
                 ))}
               </div>
+            ) : mode === 'ats' ? (
+              <p className="text-sm">{data.skills.join(', ')}</p>
             ) : (
-              <p className="text-sm">{data.skills.join(mode === 'ats' ? ', ' : ' · ')}</p>
+              <ul className="resume-skills-grid list-none pl-0 text-sm leading-snug">
+                {data.skills.map((s) => (
+                  <li key={s} className="flex gap-1.5">
+                    <span className="text-slate-400">•</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
             )}
           </section>
         )
@@ -169,11 +178,13 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
         return (
           <section key={section.id} className="resume-section mb-5">
             <Heading>Certifications</Heading>
-            {data.certifications.map((c) => (
-              <p key={c.id} className="text-sm">
-                {c.name}{c.issuer ? ` — ${c.issuer}` : ''}{c.date ? ` (${c.date})` : ''}
-              </p>
-            ))}
+            <ul className="list-disc space-y-0.5 pl-4 text-sm">
+              {data.certifications.map((c) => (
+                <li key={c.id}>
+                  {c.name}{c.issuer ? ` — ${c.issuer}` : ''}{c.date ? ` (${c.date})` : ''}
+                </li>
+              ))}
+            </ul>
           </section>
         )
 
@@ -183,9 +194,9 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
           <section key={section.id} className="resume-section mb-5">
             <Heading>Projects</Heading>
             {data.projects.map((p) => (
-              <div key={p.id} className="resume-entry resume-project mb-2">
-                <h3 className="text-sm font-semibold">{p.name}</h3>
-                <p className="text-sm">{p.description}</p>
+              <div key={p.id} className="resume-entry resume-project mb-3">
+                <h3 className="text-sm font-bold text-slate-900">{p.name}</h3>
+                <p className="mt-0.5 text-sm leading-snug text-slate-700">{p.description}</p>
               </div>
             ))}
           </section>
@@ -196,9 +207,17 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
           <>
             {data.customSections.map((cs) =>
               cs.title || cs.content ? (
-                <section key={cs.id} className="mb-5">
+                <section key={cs.id} className="resume-section mb-5">
                   <Heading>{cs.title || 'Custom'}</Heading>
-                  <p className="whitespace-pre-wrap text-sm">{cs.content}</p>
+                  {cs.content.includes('\n') ? (
+                    <ul className="list-disc space-y-0.5 pl-4 text-sm">
+                      {cs.content.split('\n').filter(Boolean).map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="whitespace-pre-wrap text-sm">{cs.content}</p>
+                  )}
                 </section>
               ) : null,
             )}
