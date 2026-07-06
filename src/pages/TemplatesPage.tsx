@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ResumeTemplateRenderer } from '../components/templates/ResumeTemplateRenderer'
 import { StepIndicator } from '../components/StepIndicator'
-import { useResume } from '../context/ResumeContext'
+import { useResume, formatLastSaved } from '../context/ResumeContext'
 import type { TemplateCategory, TemplateId } from '../types/resume'
 import {
   CATEGORY_PAGES,
@@ -11,6 +11,7 @@ import {
   parseCategoryParam,
 } from '../data/templateVariants'
 import { createDefaultResumeData } from '../utils/defaults'
+import { hasDraftData } from '../utils/storage'
 
 const PREVIEW_DATA = (() => {
   const data = createDefaultResumeData()
@@ -73,10 +74,11 @@ function TemplateCard({
 export function TemplatesPage() {
   const { category: categoryParam } = useParams<{ category?: string }>()
   const activeFilter = parseCategoryParam(categoryParam)
-  const { setSelectedTemplateId } = useResume()
+  const { setSelectedTemplateId, data, lastSavedAt, selectedTemplateId } = useResume()
   const navigate = useNavigate()
   const templates = filterVariants(activeFilter)
   const page = CATEGORY_PAGES[activeFilter]
+  const draftExists = hasDraftData(data)
 
   const selectTemplate = (id: TemplateId) => {
     setSelectedTemplateId(id)
@@ -112,6 +114,20 @@ export function TemplatesPage() {
             Choose later
           </button>
         </div>
+
+        {draftExists && selectedTemplateId && (
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 dark:border-emerald-900 dark:bg-emerald-950/40">
+            <p className="text-sm text-emerald-800 dark:text-emerald-300">
+              You have a saved draft{lastSavedAt ? ` · ${formatLastSaved(lastSavedAt)}` : ''}
+            </p>
+            <Link
+              to="/edit"
+              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-500"
+            >
+              Continue draft
+            </Link>
+          </div>
+        )}
 
         <div className="mt-8 flex gap-2 overflow-x-auto border-b border-slate-200 pb-px dark:border-slate-700">
           {FILTER_TABS.map((tab) => {

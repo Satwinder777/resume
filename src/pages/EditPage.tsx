@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { DraftStatusBar } from '../components/DraftStatusBar'
 import { ResumeForm } from '../components/form/ResumeForm'
 import { ResumePreview } from '../components/ResumePreview'
 import { StepIndicator } from '../components/StepIndicator'
@@ -48,7 +49,8 @@ export function EditPage() {
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 lg:grid-cols-2 lg:px-6">
-        <div className="min-w-0">
+        <div className="min-w-0 space-y-4">
+          <DraftStatusBar />
           <ResumeForm />
         </div>
         <div className="no-print lg:sticky lg:top-20 lg:self-start">

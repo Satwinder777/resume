@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { DraftStatusBar } from '../components/DraftStatusBar'
 import { ResumeTemplateRenderer } from '../components/templates/ResumeTemplateRenderer'
 import { StepIndicator } from '../components/StepIndicator'
 import { useResume } from '../context/ResumeContext'
@@ -30,7 +31,8 @@ export function PreviewPage() {
     <div>
       <StepIndicator currentStep={3} />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <DraftStatusBar showSaveButton={false} />
+        <div className="mb-6 mt-4 flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Your resume is ready</h1>
             <p className="mt-1 text-slate-600 dark:text-slate-400">
