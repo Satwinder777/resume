@@ -31,15 +31,15 @@ export const RESUME_PRINT_PAGE_STYLE = `
   }
 
   .resume-page header {
-    margin-bottom: 0.35rem !important;
-    padding-bottom: 0.2rem !important;
+    margin-bottom: 0.6rem !important;
+    padding-bottom: 0.4rem !important;
   }
 
   .resume-page h1,
   .resume-page .text-3xl {
     font-size: 15pt !important;
     line-height: 1.15 !important;
-    margin-bottom: 0.1rem !important;
+    margin-bottom: 0.15rem !important;
   }
 
   .resume-page .text-base {
@@ -67,7 +67,7 @@ export const RESUME_PRINT_PAGE_STYLE = `
   }
 
   .resume-section {
-    margin-bottom: 0.3rem !important;
+    margin-bottom: 0.55rem !important;
     break-inside: auto !important;
     page-break-inside: auto !important;
   }
@@ -75,7 +75,9 @@ export const RESUME_PRINT_PAGE_STYLE = `
   .resume-section-heading {
     break-after: avoid !important;
     page-break-after: avoid !important;
-    margin-bottom: 0.12rem !important;
+    padding-bottom: 0.22rem !important;
+    margin-top: 0.2rem !important;
+    margin-bottom: 0.5rem !important;
   }
 
   .resume-job-header {

@@ -22,7 +22,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       case 'professional':
         return (
           <h2
-            className="resume-section-heading mb-3 border-b pb-1 font-serif text-sm font-bold uppercase tracking-widest"
+            className="resume-section-heading mb-3 border-b pb-1.5 font-serif text-sm font-bold uppercase tracking-widest"
             style={{ color: accent, borderColor: `${accent}55` }}
           >
             {children}
@@ -44,7 +44,7 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
       default:
         return (
           <h2
-            className="resume-section-heading mb-2 border-b pb-1 text-xs font-bold uppercase tracking-widest text-black"
+            className="resume-section-heading mb-3 border-b pb-1.5 text-xs font-bold uppercase tracking-widest text-black"
             style={{ borderColor: primary }}
           >
             {children}

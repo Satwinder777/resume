@@ -8,7 +8,7 @@ interface TemplateProps {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="resume-section-heading mb-2 border-b border-slate-900 pb-1 text-xs font-bold uppercase tracking-widest text-slate-900">
+    <h2 className="resume-section-heading mb-3 border-b border-slate-900 pb-1.5 text-xs font-bold uppercase tracking-widest text-slate-900">
       {children}
     </h2>
   )
