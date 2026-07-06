@@ -23,6 +23,7 @@ export function createDefaultResumeData(): ResumeData {
       phone: '',
       location: '',
       linkedin: '',
+      website: '',
       photo: null,
     },
     summary: '',

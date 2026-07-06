@@ -18,7 +18,7 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
   const { personalInfo, summary, experience, education, skills, languages, certifications, projects, customSections, sectionOrder } = data
   const sections = getVisibleSections(sectionOrder)
 
-  const contact = [personalInfo.email, personalInfo.phone, personalInfo.location, personalInfo.linkedin]
+  const contact = [personalInfo.email, personalInfo.phone, personalInfo.location, personalInfo.website, personalInfo.linkedin]
     .filter(Boolean)
     .join(' · ')
 

@@ -22,6 +22,7 @@ const PREVIEW_DATA = (() => {
     phone: '+1 555 0100',
     location: 'New York, NY',
     linkedin: 'linkedin.com/in/janedoe',
+    website: 'janedoe.com',
     photo: null,
   }
   data.summary = 'Results-driven professional with 5+ years of experience delivering measurable outcomes.'

@@ -13,9 +13,10 @@ export function getVisibleSections(sectionOrder: SectionConfig[]) {
 
 export function getContactParts(personalInfo: ResumeData['personalInfo']) {
   return [
-  personalInfo.email,
-  personalInfo.phone,
-  personalInfo.location,
-  personalInfo.linkedin,
-].filter(Boolean)
+    personalInfo.email,
+    personalInfo.phone,
+    personalInfo.location,
+    personalInfo.website,
+    personalInfo.linkedin,
+  ].filter(Boolean)
 }

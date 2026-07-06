@@ -273,6 +273,7 @@ export function ContactIcons({ data, light }: { data: ResumeData; light?: boolea
     personalInfo.phone && { icon: '☎', value: personalInfo.phone },
     personalInfo.location && { icon: '⌖', value: personalInfo.location },
     personalInfo.linkedin && { icon: 'in', value: personalInfo.linkedin },
+    personalInfo.website && { icon: '⌁', value: personalInfo.website },
   ].filter(Boolean) as { icon: string; value: string }[]
 
   return (

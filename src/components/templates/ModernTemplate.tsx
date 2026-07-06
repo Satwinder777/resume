@@ -154,6 +154,9 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
           {personalInfo.linkedin && (
             <p><ContactIcon>in</ContactIcon>{personalInfo.linkedin}</p>
           )}
+          {personalInfo.website && (
+            <p><ContactIcon>⌁</ContactIcon>{personalInfo.website}</p>
+          )}
         </div>
         {skills.length > 0 && (
           <div className="mt-8">

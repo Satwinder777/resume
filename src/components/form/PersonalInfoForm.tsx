@@ -41,6 +41,9 @@ export function PersonalInfoForm() {
         <FormField label="LinkedIn">
           <input className={inputClass} value={personalInfo.linkedin} onChange={(e) => update('linkedin', e.target.value)} placeholder="linkedin.com/in/janedoe" />
         </FormField>
+        <FormField label="Website">
+          <input className={inputClass} type="url" value={personalInfo.website} onChange={(e) => update('website', e.target.value)} placeholder="https://yourwebsite.com" />
+        </FormField>
         <FormField label="Profile photo" className="sm:col-span-2">
           <div className="flex items-center gap-4">
             {personalInfo.photo && (
