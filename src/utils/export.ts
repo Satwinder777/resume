@@ -5,11 +5,15 @@ import { RESUME_PRINT_PAGE_STYLE } from './printStyles'
 
 const A4_WIDTH_MM = 210
 const A4_HEIGHT_MM = 297
+const PAGE_MARGIN_X_MM = 8
+const PAGE_MARGIN_Y_MM = 7
 
 function sliceCanvasToPdf(canvas: HTMLCanvasElement, pdf: jsPDF) {
   const pageWidth = A4_WIDTH_MM
   const pageHeight = A4_HEIGHT_MM
-  const pageHeightPx = Math.floor((canvas.width * pageHeight) / pageWidth)
+  const contentWidth = pageWidth - PAGE_MARGIN_X_MM * 2
+  const contentHeight = pageHeight - PAGE_MARGIN_Y_MM * 2
+  const pageHeightPx = Math.floor((canvas.width * contentHeight) / contentWidth)
   let renderedHeight = 0
   let pageIndex = 0
 
@@ -34,9 +38,16 @@ function sliceCanvasToPdf(canvas: HTMLCanvasElement, pdf: jsPDF) {
       sliceHeight,
     )
 
-    const sliceHeightMm = (sliceHeight * pageWidth) / canvas.width
+    const sliceHeightMm = (sliceHeight * contentWidth) / canvas.width
     if (pageIndex > 0) pdf.addPage()
-    pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', 0, 0, pageWidth, sliceHeightMm)
+    pdf.addImage(
+      pageCanvas.toDataURL('image/png'),
+      'PNG',
+      PAGE_MARGIN_X_MM,
+      PAGE_MARGIN_Y_MM,
+      contentWidth,
+      sliceHeightMm,
+    )
 
     renderedHeight += sliceHeight
     pageIndex += 1
