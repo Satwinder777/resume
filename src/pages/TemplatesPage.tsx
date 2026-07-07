@@ -26,7 +26,10 @@ const PREVIEW_DATA = (() => {
     photo: null,
   }
   data.summary = 'Results-driven professional with 5+ years of experience delivering measurable outcomes.'
-  data.skills = ['Leadership', 'Strategy', 'Analytics', 'Communication']
+  data.skillCategories = [
+    { id: 'preview-skills-1', name: 'Core', skills: ['Leadership', 'Strategy'] },
+    { id: 'preview-skills-2', name: 'Tools', skills: ['Analytics', 'Communication'] },
+  ]
   data.languages = [{ id: '1', language: 'English', proficiency: 'Native' }]
   data.experience[0] = {
     ...data.experience[0],

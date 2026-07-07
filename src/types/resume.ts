@@ -1,3 +1,9 @@
+export interface SkillCategory {
+  id: string
+  name: string
+  skills: string[]
+}
+
 export interface PersonalInfo {
   name: string
   jobTitle: string
@@ -74,7 +80,7 @@ export interface ResumeData {
   summary: string
   experience: WorkExperience[]
   education: Education[]
-  skills: string[]
+  skillCategories: SkillCategory[]
   languages: Language[]
   certifications: Certification[]
   projects: Project[]

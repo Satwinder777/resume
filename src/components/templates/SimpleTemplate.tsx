@@ -1,4 +1,6 @@
 import type { ResumeData, SectionConfig } from '../../types/resume'
+import { hasSkills } from '../../utils/skills'
+import { SkillsDisplay } from './SkillsDisplay'
 import { formatDateRange, getVisibleSections } from './shared'
 
 interface TemplateProps {
@@ -15,7 +17,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 }
 
 export function SimpleTemplate({ data, className = '' }: TemplateProps) {
-  const { personalInfo, summary, experience, education, skills, languages, certifications, projects, customSections, sectionOrder } = data
+  const { personalInfo, summary, experience, education, languages, certifications, projects, customSections, sectionOrder } = data
   const sections = getVisibleSections(sectionOrder)
 
   const contact = [personalInfo.email, personalInfo.phone, personalInfo.location, personalInfo.website, personalInfo.linkedin]
@@ -82,11 +84,11 @@ export function SimpleTemplate({ data, className = '' }: TemplateProps) {
           </section>
         )
       case 'skills':
-        if (skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <section key={section.id} className="resume-section mb-5">
             <SectionHeading>Skills</SectionHeading>
-            <p className="text-sm text-slate-700">{skills.join(' · ')}</p>
+            <SkillsDisplay categories={data.skillCategories} mode="grid" />
           </section>
         )
       case 'languages':

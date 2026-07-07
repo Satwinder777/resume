@@ -1,4 +1,6 @@
 import type { ResumeData, SectionConfig } from '../../types/resume'
+import { hasSkills } from '../../utils/skills'
+import { SkillsDisplay } from './SkillsDisplay'
 import { formatDateRange, getContactParts, getVisibleSections } from './shared'
 
 interface TemplateProps {
@@ -17,7 +19,7 @@ const SECTION_LABELS: Record<string, string> = {
 }
 
 export function AtsTemplate({ data, className = '' }: TemplateProps) {
-  const { personalInfo, summary, experience, education, skills, languages, certifications, projects, customSections, sectionOrder } = data
+  const { personalInfo, summary, experience, education, languages, certifications, projects, customSections, sectionOrder } = data
   const sections = getVisibleSections(sectionOrder)
   const contact = getContactParts(personalInfo)
 
@@ -65,11 +67,11 @@ export function AtsTemplate({ data, className = '' }: TemplateProps) {
           </div>
         )
       case 'skills':
-        if (skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <div key={section.id} className="resume-section mb-4">
             <p className="mb-1 text-sm font-bold">{label}</p>
-            <p className="text-sm">{skills.join(', ')}</p>
+            <SkillsDisplay categories={data.skillCategories} mode="comma" />
           </div>
         )
       case 'languages':

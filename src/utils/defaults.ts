@@ -47,7 +47,7 @@ export function createDefaultResumeData(): ResumeData {
         endDate: '',
       },
     ],
-    skills: [],
+    skillCategories: [{ id: createId(), name: 'Technical Skills', skills: [] }],
     languages: [],
     certifications: [],
     projects: [],

@@ -1,5 +1,7 @@
 import type { ResumeData, SectionConfig } from '../../types/resume'
 import type { TemplateTheme } from '../../data/templateVariants'
+import { hasSkills } from '../../utils/skills'
+import { SkillsDisplay } from './SkillsDisplay'
 import { formatDateRange, getVisibleSections } from './shared'
 
 interface SectionContentProps {
@@ -73,11 +75,11 @@ export function SectionContent({ data, theme, sidebarSections = [] }: SectionCon
           </section>
         )
       case 'skills':
-        if (data.skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <section key={section.id} className="mb-4">
             <h2 className={headingClass(theme)} style={{ color: accent }}>Skills</h2>
-            <p className="text-sm">{data.skills.join(' · ')}</p>
+            <SkillsDisplay categories={data.skillCategories} mode="inline" />
           </section>
         )
       case 'languages':
@@ -140,14 +142,15 @@ export function SidebarSkillsLanguages({ data, theme }: { data: ResumeData; them
 
   return (
     <>
-      {data.skills.length > 0 && (
+      {hasSkills(data.skillCategories) && (
         <div className="mb-5">
           <h2 className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: accent }}>Skills</h2>
-          <div className="flex flex-wrap gap-1">
-            {data.skills.map((s) => (
-              <span key={s} className="rounded px-1.5 py-0.5 text-xs" style={{ background: 'rgba(255,255,255,0.15)', color: textColor }}>{s}</span>
-            ))}
-          </div>
+          <SkillsDisplay
+            categories={data.skillCategories}
+            mode="sidebar-tags"
+            accent={accent}
+            textColor={textColor}
+          />
         </div>
       )}
       {data.languages.length > 0 && (

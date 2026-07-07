@@ -2,8 +2,9 @@ import type { ResumeBuilderState, ResumeData } from '../types/resume'
 import { STORAGE_KEY } from '../types/resume'
 import { normalizeTemplateId } from '../data/templateVariants'
 import { createDefaultResumeData } from './defaults'
+import { hasSkills, normalizeSkillCategories } from './skills'
 
-const STORAGE_VERSION = 2
+const STORAGE_VERSION = 3
 
 export interface StoredPayload extends ResumeBuilderState {
   version: number
@@ -18,7 +19,10 @@ function mergeResumeData(parsed: Partial<ResumeData> | undefined, defaults: Resu
     summary: parsed.summary ?? defaults.summary,
     experience: Array.isArray(parsed.experience) ? parsed.experience : defaults.experience,
     education: Array.isArray(parsed.education) ? parsed.education : defaults.education,
-    skills: Array.isArray(parsed.skills) ? parsed.skills : defaults.skills,
+    skillCategories: normalizeSkillCategories(
+      parsed.skillCategories ?? (parsed as { skills?: unknown }).skills,
+      defaults.skillCategories,
+    ),
     languages: Array.isArray(parsed.languages) ? parsed.languages : defaults.languages,
     certifications: Array.isArray(parsed.certifications) ? parsed.certifications : defaults.certifications,
     projects: Array.isArray(parsed.projects) ? parsed.projects : defaults.projects,
@@ -86,12 +90,12 @@ export function formatLastSaved(iso: string | null): string {
 }
 
 export function hasDraftData(data: ResumeData): boolean {
-  const { personalInfo, summary, experience, education, skills } = data
+  const { personalInfo, summary, experience, education, skillCategories } = data
   return Boolean(
     personalInfo.name ||
     personalInfo.email ||
     summary ||
-    skills.length > 0 ||
+    hasSkills(skillCategories) ||
     experience.some((e) => e.company || e.role) ||
     education.some((e) => e.school || e.degree),
   )

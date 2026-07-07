@@ -1,5 +1,7 @@
 import type { ResumeData, SectionConfig } from '../../../types/resume'
 import type { TemplateTheme } from '../../../data/templateVariants'
+import { hasSkills } from '../../../utils/skills'
+import { SkillsDisplay } from '../SkillsDisplay'
 import { formatDateRange, getVisibleSections } from '../shared'
 
 export type SectionMode = 'simple' | 'modern' | 'ats' | 'professional' | 'one-column'
@@ -135,30 +137,21 @@ export function RenderSections({ data, theme, mode, exclude = [] }: RenderSectio
         )
 
       case 'skills':
-        if (data.skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <section key={section.id} className="resume-section mb-5">
             <Heading>Skills</Heading>
-            {mode === 'modern' ? (
-              <div className="flex flex-wrap gap-1.5">
-                {data.skills.map((s) => (
-                  <span key={s} className="rounded-full px-2 py-0.5 text-xs font-medium" style={{ background: `${accent}22`, color: accent }}>
-                    {s}
-                  </span>
-                ))}
-              </div>
-            ) : mode === 'ats' ? (
-              <p className="text-sm">{data.skills.join(', ')}</p>
-            ) : (
-              <ul className="resume-skills-grid list-none pl-0 text-sm leading-snug">
-                {data.skills.map((s) => (
-                  <li key={s} className="flex gap-1.5">
-                    <span className="text-slate-400">•</span>
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <SkillsDisplay
+              categories={data.skillCategories}
+              mode={
+                mode === 'modern'
+                  ? 'pills'
+                  : mode === 'ats' || mode === 'one-column'
+                    ? 'comma'
+                    : 'grid'
+              }
+              accent={accent}
+            />
           </section>
         )
 
@@ -257,17 +250,15 @@ export function SidebarBlock({
           )}
         </div>
       )}
-      {data.skills.length > 0 && (
+      {hasSkills(data.skillCategories) && (
         <div className="mb-5">
           <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: theme.accent }}>Skills</p>
-          <div className="space-y-1">
-            {data.skills.map((s) => (
-              <div key={s} className="flex items-center gap-2 text-xs" style={{ color: text }}>
-                <span className="h-1 w-1 rounded-full bg-current" />
-                {s}
-              </div>
-            ))}
-          </div>
+          <SkillsDisplay
+            categories={data.skillCategories}
+            mode="sidebar-dots"
+            accent={theme.accent}
+            textColor={text}
+          />
         </div>
       )}
       {data.languages.length > 0 && (

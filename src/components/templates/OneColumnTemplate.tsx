@@ -1,4 +1,6 @@
 import type { ResumeData, SectionConfig } from '../../types/resume'
+import { hasSkills } from '../../utils/skills'
+import { SkillsDisplay } from './SkillsDisplay'
 import { formatDateRange, getContactParts, getVisibleSections } from './shared'
 
 interface TemplateProps {
@@ -17,7 +19,7 @@ const SECTION_LABELS: Record<string, string> = {
 }
 
 export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
-  const { personalInfo, summary, experience, education, skills, languages, certifications, projects, customSections, sectionOrder } = data
+  const { personalInfo, summary, experience, education, languages, certifications, projects, customSections, sectionOrder } = data
   const sections = getVisibleSections(sectionOrder)
   const contact = getContactParts(personalInfo).join(' | ')
 
@@ -67,11 +69,11 @@ export function OneColumnTemplate({ data, className = '' }: TemplateProps) {
           </section>
         )
       case 'skills':
-        if (skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <section key={section.id} className="resume-section mb-4">
             <h2 className="mb-1 text-sm font-bold text-black">{label}</h2>
-            <p className="text-sm text-black">{skills.join(', ')}</p>
+            <SkillsDisplay categories={data.skillCategories} mode="comma" />
           </section>
         )
       case 'languages':

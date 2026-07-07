@@ -1,4 +1,6 @@
 import type { ResumeData, SectionConfig } from '../../types/resume'
+import { hasSkills } from '../../utils/skills'
+import { SkillsDisplay } from './SkillsDisplay'
 import { formatDateRange, getContactParts, getVisibleSections } from './shared'
 
 interface TemplateProps {
@@ -7,7 +9,7 @@ interface TemplateProps {
 }
 
 export function WithPhotoTemplate({ data, className = '' }: TemplateProps) {
-  const { personalInfo, summary, experience, education, skills, languages, certifications, projects, customSections, sectionOrder } = data
+  const { personalInfo, summary, experience, education, languages, certifications, projects, customSections, sectionOrder } = data
   const sections = getVisibleSections(sectionOrder)
   const contact = getContactParts(personalInfo)
 
@@ -55,11 +57,11 @@ export function WithPhotoTemplate({ data, className = '' }: TemplateProps) {
           </section>
         )
       case 'skills':
-        if (skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 border-b-2 border-indigo-500 pb-1 text-sm font-bold text-indigo-600">Skills</h2>
-            <p className="text-sm text-slate-700">{skills.join(' · ')}</p>
+            <SkillsDisplay categories={data.skillCategories} mode="grid" />
           </section>
         )
       case 'languages':

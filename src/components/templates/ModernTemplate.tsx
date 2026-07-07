@@ -1,4 +1,6 @@
 import type { ResumeData, SectionConfig } from '../../types/resume'
+import { hasSkills } from '../../utils/skills'
+import { SkillsDisplay } from './SkillsDisplay'
 import { formatDateRange, getContactParts, getVisibleSections } from './shared'
 
 interface TemplateProps {
@@ -11,7 +13,7 @@ function ContactIcon({ children }: { children: React.ReactNode }) {
 }
 
 export function ModernTemplate({ data, className = '' }: TemplateProps) {
-  const { personalInfo, summary, experience, education, skills, languages, certifications, projects, customSections, sectionOrder } = data
+  const { personalInfo, summary, experience, education, languages, certifications, projects, customSections, sectionOrder } = data
   const sections = getVisibleSections(sectionOrder)
   const contact = getContactParts(personalInfo)
 
@@ -65,17 +67,11 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
           </section>
         )
       case 'skills':
-        if (skills.length === 0) return null
+        if (!hasSkills(data.skillCategories)) return null
         return (
           <section key={section.id} className="resume-section mb-5">
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-indigo-600">Skills</h2>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <span key={skill} className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
-                  {skill}
-                </span>
-              ))}
-            </div>
+            <SkillsDisplay categories={data.skillCategories} mode="pills" accent="#4f46e5" />
           </section>
         )
       case 'languages':
@@ -158,14 +154,15 @@ export function ModernTemplate({ data, className = '' }: TemplateProps) {
             <p><ContactIcon>⌁</ContactIcon>{personalInfo.website}</p>
           )}
         </div>
-        {skills.length > 0 && (
+        {hasSkills(data.skillCategories) && (
           <div className="mt-8">
             <h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-indigo-300">Skills</h2>
-            <div className="flex flex-wrap gap-1.5">
-              {skills.map((s) => (
-                <span key={s} className="rounded bg-slate-700 px-2 py-0.5 text-xs">{s}</span>
-              ))}
-            </div>
+            <SkillsDisplay
+              categories={data.skillCategories}
+              mode="sidebar-tags"
+              accent="#a5b4fc"
+              textColor="#fff"
+            />
           </div>
         )}
         {languages.length > 0 && (
